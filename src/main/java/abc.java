@@ -10,11 +10,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Literally a useless class that was used for testing, so we could yoink the code to the selenium class hehe
+ */
 public class abc {
-    public static String title = "";
-    public static String firstName = "";
-    public static String lastName = "";
-    public static String email = "";
+    public static String employeeFirstName = "";
+    public static String employeeLastName = "";
+    public static String employeePrevJobTitle = "";
+    public static String employeePrevJobCompanyName = "";
+    public static String employeePrevJobStartDate = "";
+    public static String employeePrevJobEndDate = "";
+    public static String refTitle = "";
+    public static String refFirstName = "";
+    public static String refLastName = "";
+    public static String refEmail = "";
+    public static ArrayList<String> testArray = new ArrayList<>();
 
     public static void main(String args[]) throws IOException {
         FileInputStream fis = new FileInputStream(new File("C://Users//patri//Desktop//tsiEmployeeInfo.xlsx"));
@@ -29,38 +39,59 @@ public class abc {
 
             if (row.getRowNum() == 1) // skip title row
             {
-                ArrayList<String> testArray = new ArrayList<>();
                 Iterator cellIterator = row.cellIterator();
-
                 while (cellIterator.hasNext()) {
                     Cell cell = (Cell) cellIterator.next();
                     testArray.add(cell.getStringCellValue());
                 }
-                System.out.println(testArray.toString());
 
                 for(int x = 0; x < testArray.size(); x++) {
                     testArray.get(x);
                     switch (x) {
                         default:
                             break;
+                        case 0:
+                            employeeFirstName = testArray.get(x);
+                            break;
+                        case 1:
+                            employeeLastName = testArray.get(x);
+                            break;
+                        case 3:
+                            employeePrevJobTitle = testArray.get(x);
+                            break;
+                        case 4:
+                            employeePrevJobCompanyName= testArray.get(x);
+                            break;
+                        case 5:
+                            employeePrevJobStartDate = testArray.get(x);
+                            break;
+                        case 6:
+                            employeePrevJobEndDate = testArray.get(x);
+                            break;
                         case 7:
-                            title = testArray.get(x);
+                            refTitle = testArray.get(x);
                             break;
                         case 8:
-                            firstName = testArray.get(x);
+                            refFirstName = testArray.get(x);
                             break;
                         case 9:
-                            lastName = testArray.get(x);
+                            refLastName = testArray.get(x);
                             break;
                         case 10:
-                            email = testArray.get(x);
+                            refEmail = testArray.get(x);
                             break;
                     }
                 }
-                System.out.println(title);
-                System.out.println(firstName);
-                System.out.println(lastName);
-                System.out.println(email);
+                System.out.println(employeeFirstName);
+                System.out.println(employeeLastName);
+                System.out.println(employeePrevJobTitle);
+                System.out.println(employeePrevJobCompanyName);
+                System.out.println(employeePrevJobStartDate);
+                System.out.println(employeePrevJobEndDate);
+                System.out.println(refTitle);
+                System.out.println(refFirstName);
+                System.out.println(refLastName);
+                System.out.println(refEmail);
             }
         }
     }
