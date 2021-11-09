@@ -1,3 +1,4 @@
+import org.apache.hc.core5.http.io.SessionOutputBuffer;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -10,6 +11,10 @@ import java.io.IOException;
 import java.util.*;
 
 public class abc {
+    public static String title = "";
+    public static String firstName = "";
+    public static String lastName = "";
+    public static String email = "";
 
     public static void main(String args[]) throws IOException {
         FileInputStream fis = new FileInputStream(new File("C://Users//patri//Desktop//tsiEmployeeInfo.xlsx"));
@@ -22,7 +27,7 @@ public class abc {
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
 
-            if (row.getRowNum() != 0) // skip title row
+            if (row.getRowNum() == 1) // skip title row
             {
                 ArrayList<String> testArray = new ArrayList<>();
                 Iterator cellIterator = row.cellIterator();
@@ -32,6 +37,30 @@ public class abc {
                     testArray.add(cell.getStringCellValue());
                 }
                 System.out.println(testArray.toString());
+
+                for(int x = 0; x < testArray.size(); x++) {
+                    testArray.get(x);
+                    switch (x) {
+                        default:
+                            break;
+                        case 7:
+                            title = testArray.get(x);
+                            break;
+                        case 8:
+                            firstName = testArray.get(x);
+                            break;
+                        case 9:
+                            lastName = testArray.get(x);
+                            break;
+                        case 10:
+                            email = testArray.get(x);
+                            break;
+                    }
+                }
+                System.out.println(title);
+                System.out.println(firstName);
+                System.out.println(lastName);
+                System.out.println(email);
             }
         }
     }
