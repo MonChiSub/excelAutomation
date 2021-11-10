@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -26,9 +27,10 @@ public class StepDefinitions {
     @Given("The employee has provided their details to me")
     public void detailCheck() throws IOException {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.get("https://outlook.office.com/mail/");
-        driver.get("https://www.lettercount.com/");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--user-data-dir=C:\\Users\\patri\\AppData\\Local\\Google\\Chrome\\User Data");
+        driver = new ChromeDriver(options);
+        driver.get("");
         driver.manage().window().maximize();
 
         FileInputStream fis = new FileInputStream(new File("C://Users//patri//Desktop//tsiEmployeeInfo.xlsx"));
@@ -103,7 +105,7 @@ public class StepDefinitions {
 
     @Then("Send the email to the recipient")
     public void sendEmail() throws InterruptedException {
-        driver.findElement(By.xpath("/html/body/div[2]/div/div[3]/div[2]/div/div/div/div/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[3]/div[2]/div[1]/div/div/span/button[1]")).click();
-        driver.quit();
+//        driver.findElement(By.xpath("/html/body/div[2]/div/div[3]/div[2]/div/div/div/div/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[3]/div[2]/div[1]/div/div/span/button[1]")).click();
+//        driver.quit();
     }
 }
