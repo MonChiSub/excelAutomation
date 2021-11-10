@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class StepDefinitions {
-    WebDriver driver;
+    WebDriver driver; 
     private String employeeFirstName, employeeLastName, employeePrevJobTitle, employeePrevJobCompanyName, employeePrevJobStartDate,
             employeePrevJobEndDate, refTitle, refFirstName, refLastName, refEmail = "";
     private ArrayList<String> testArray = new ArrayList<>();
