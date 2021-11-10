@@ -28,7 +28,7 @@ public class StepDefinitions {
 
     @Given("The employee has provided their details to me")
     public void detailCheck() throws IOException {
-        FileInputStream fis = new FileInputStream(new File("C://Users//patri//Desktop//tsiEmployeeInfo.xlsx"));
+        FileInputStream fis = new FileInputStream(new File("C://Users//micha//Desktop//tsiEmployeeInfo.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(fis); // XSSFWorkbook for .xlsx file
         XSSFSheet sheet = workbook.getSheetAt(1); // open sheet 1
 
@@ -86,25 +86,40 @@ public class StepDefinitions {
         }
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--user-data-dir=C:\\Users\\patri\\AppData\\Local\\Google\\Chrome\\User Data");
+        options.addArguments("--user-data-dir=C:\\Users\\micha\\AppData\\Local\\Google\\Chrome\\User Data");
         driver = new ChromeDriver(options);
         driver.get("https://mail.google.com/mail/");
         driver.manage().window().maximize();
     }
 
     @When("I am writing an email for the reference")
-    public void writeEmail() {
+    public void writeEmail() throws InterruptedException{
         driver.findElement(By.xpath("/html/body/div[7]/div[3]/div/div[2]/div[1]/div[1]/div[1]/div/div/div/div[1]/div/div")).click();
-        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div[1]/div[3]/div[1]/div[1]/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/form/div[1]/table/tbody/tr[1]/td[2]/div/div/input")).sendKeys(refEmail);
-        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div[1]/div[3]/div[1]/div[1]/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/form/div[3]/div/input")).sendKeys("Hello test 123 xd");
-        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div[1]/div[3]/div[1]/div[1]/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr[1]/td/div/div[1]/div[2]/div[1]/div/table/tbody/tr/td[2]/div[2]/div"))
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("/html/body/div[23]/div/div/div/div[1]/div[3]/div[1]/div[1]/div/div/div/div[2]/div/div[2]/div/div/div/div/table/tbody/tr/td[2]/img[2]")).click();
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/form/div[1]/table/tbody/tr[1]/td[2]/div/div/textarea")).sendKeys(refEmail);
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/form/div[1]/table/tbody/tr[1]/td[2]/div/div/textarea")).sendKeys(Keys.ENTER);
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/form/div[3]/div/input")).sendKeys("Hello test test 123 xd");
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr[1]/td/div/div[1]/div[2]/div[1]/div/table/tbody/tr/td[2]/div[2]/div"))
                 .sendKeys("Hello, " + refTitle + " " + refLastName + "\n\n"
                 + "I am writing to you today to ask for a reference on behalf of " + employeeFirstName + " " + employeeLastName
                         + ", who has claimed to have previously worked for you from the years of " + employeePrevJobStartDate
                         + " - " + employeePrevJobEndDate + ", as a " + employeePrevJobTitle + " at " + employeePrevJobCompanyName
                         + ".\n\n" + "Kind Regards, \nThomas Hooson");
-        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div[1]/div[3]/div[1]/div[1]/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr[1]/td/div/div[1]/div[2]/div[1]/div/table/tbody/tr/td[2]/div[2]/div")).sendKeys(keysPressed);
-
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div/div[2]/div/div[2]/div/div/div/div/table/tbody/tr/td[2]")).click();
+//        driver.findElement(By.xpath("/html/body/div[24]/div/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr[1]/td/div/div[1]/div[2]/div[1]/div/table/tbody/tr/td[2]/div[2]/div")).sendKeys(keysPressed);
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("/html/body/div[7]/div[3]/div/div[2]/div[1]/div[1]/div[1]/div/div/div/div[2]/div/div/div[1]/div[1]/div/div[6]/div")).click();
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("/html/body/div[7]/div[3]/div/div[2]/div[1]/div[2]/div/div/div/div/div[2]/div/div[1]/div/div[2]/div[4]/div[2]/div/table/tbody/tr[1]/td[5]")).click();
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("/html/body/div[23]/div/div/div/div[1]/div[3]/div[1]/div[1]/div/div/div/div[3]/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr[1]/td/div/div[1]/div[2]/div[1]/div/table/tbody/tr/td[2]/div[2]/div")).sendKeys(keysPressed);
+        Thread.sleep(5000);
     }
 
     @Then("Send the email to the recipient")
