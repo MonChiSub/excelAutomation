@@ -1,9 +1,11 @@
+package seleniumWentBrr;
+
 import org.apache.hc.core5.http.io.SessionOutputBuffer;
+import org.apache.poi.ss.formula.functions.Column;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,17 +16,18 @@ import java.util.*;
  * Literally a useless class that was used for testing, so we could yoink the code to the selenium class hehe
  */
 public class abc {
-    public static String employeeFirstName = "";
-    public static String employeeLastName = "";
-    public static String employeePrevJobTitle = "";
-    public static String employeePrevJobCompanyName = "";
-    public static String employeePrevJobStartDate = "";
-    public static String employeePrevJobEndDate = "";
-    public static String refTitle = "";
-    public static String refFirstName = "";
-    public static String refLastName = "";
-    public static String refEmail = "";
-    public static ArrayList<String> testArray = new ArrayList<>();
+    protected static ArrayList<String> fullDatas = new ArrayList<>();
+    protected static ArrayList<String> employeeFirstNames = new ArrayList<>();
+    protected static ArrayList<String> employeeLastNames = new ArrayList<>();
+    protected static ArrayList<String> employeeEmails = new ArrayList<>();
+    protected static ArrayList<String> employeePrevJobTitles = new ArrayList<>();
+    protected static ArrayList<String> employeePrevJobCompanyNames = new ArrayList<>();
+    protected static ArrayList<String> employeePrevJobStartDates = new ArrayList<>();
+    protected static ArrayList<String> employeePrevJobEndDates = new ArrayList<>();
+    protected static ArrayList<String> refTitles = new ArrayList<>();
+    protected static ArrayList<String> refFirstNames = new ArrayList<>();
+    protected static ArrayList<String> refLastNames = new ArrayList<>();
+    protected static ArrayList<String> refEmails = new ArrayList<>();
 
     public static void main(String args[]) throws IOException {
         FileInputStream fis = new FileInputStream(new File("C://Users//patri//Desktop//tsiEmployeeInfo.xlsx"));
@@ -33,66 +36,56 @@ public class abc {
 
         Iterator<Row> rowIterator = sheet.iterator();
 
-        // Traversing over each row of XLSX file
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
 
-            if (row.getRowNum() == 1) // skip title row
-            {
+            if (row.getRowNum() != 0) {
                 Iterator cellIterator = row.cellIterator();
+
                 while (cellIterator.hasNext()) {
                     Cell cell = (Cell) cellIterator.next();
-                    testArray.add(cell.getStringCellValue());
-                }
-
-                for(int x = 0; x < testArray.size(); x++) {
-                    testArray.get(x);
-                    switch (x) {
-                        default:
-                            break;
-                        case 0:
-                            employeeFirstName = testArray.get(x);
-                            break;
-                        case 1:
-                            employeeLastName = testArray.get(x);
-                            break;
-                        case 3:
-                            employeePrevJobTitle = testArray.get(x);
-                            break;
-                        case 4:
-                            employeePrevJobCompanyName= testArray.get(x);
-                            break;
-                        case 5:
-                            employeePrevJobStartDate = testArray.get(x);
-                            break;
-                        case 6:
-                            employeePrevJobEndDate = testArray.get(x);
-                            break;
-                        case 7:
-                            refTitle = testArray.get(x);
-                            break;
-                        case 8:
-                            refFirstName = testArray.get(x);
-                            break;
-                        case 9:
-                            refLastName = testArray.get(x);
-                            break;
-                        case 10:
-                            refEmail = testArray.get(x);
-                            break;
+                    cell.setCellType(Cell.CELL_TYPE_STRING);
+                    if (!cell.getStringCellValue().isEmpty()) {
+                        if (!cell.getStringCellValue().equals("0")) {
+                            if (!cell.getStringCellValue().equals(",")) {
+                                fullDatas.add(cell.getStringCellValue());
+                            }
+                        }
                     }
                 }
-                System.out.println(employeeFirstName);
-                System.out.println(employeeLastName);
-                System.out.println(employeePrevJobTitle);
-                System.out.println(employeePrevJobCompanyName);
-                System.out.println(employeePrevJobStartDate);
-                System.out.println(employeePrevJobEndDate);
-                System.out.println(refTitle);
-                System.out.println(refFirstName);
-                System.out.println(refLastName);
-                System.out.println(refEmail);
             }
+        }
+        for (int x = 0; x < (fullDatas.size()); x++) {
+            int y = x + 11;
+            if (y % 11 == 0) {
+                employeeFirstNames.add(fullDatas.get(x));
+            } else if (y % 11 == 1) {
+                employeeLastNames.add(fullDatas.get(x));
+            } else if (y % 11 == 2) {
+                employeeEmails.add(fullDatas.get(x));
+            } else if (y % 11 == 3) {
+                employeePrevJobTitles.add(fullDatas.get(x));
+            } else if (y % 11 == 4) {
+                employeePrevJobCompanyNames.add(fullDatas.get(x));
+            } else if (y % 11 == 5) {
+                employeePrevJobStartDates.add(fullDatas.get(x));
+            } else if (y % 11 == 6) {
+                employeePrevJobEndDates.add(fullDatas.get(x));
+            } else if (y % 11 == 7) {
+                refTitles.add(fullDatas.get(x));
+            } else if (y % 11 == 8) {
+                refFirstNames.add(fullDatas.get(x));
+            } else if (y % 11 == 9) {
+                refLastNames.add(fullDatas.get(x));
+            } else if (y % 11 == 10) {
+                refEmails.add(fullDatas.get(x));
+            }
+        }
+
+        for (int x = 0; x < employeeFirstNames.size(); x++) {
+            System.out.println(employeeFirstNames.get(x));
+            System.out.println(employeeLastNames.get(x));
+            System.out.println();
         }
     }
 }
