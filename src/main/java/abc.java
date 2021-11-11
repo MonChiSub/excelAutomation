@@ -85,6 +85,15 @@ public class abc {
         for (int x = 0; x < employeeFirstNames.size(); x++) {
             System.out.println(employeeFirstNames.get(x));
             System.out.println(employeeLastNames.get(x));
+            System.out.println(employeeEmails.get(x));
+            System.out.println(employeePrevJobTitles.get(x));
+            System.out.println(employeePrevJobCompanyNames.get(x));
+            System.out.println(employeePrevJobStartDates.get(x));
+            System.out.println(employeePrevJobEndDates.get(x));
+            System.out.println(refTitles.get(x));
+            System.out.println(refFirstNames.get(x));
+            System.out.println(refLastNames.get(x));
+            System.out.println(refEmails.get(x));
             System.out.println();
         }
     }
