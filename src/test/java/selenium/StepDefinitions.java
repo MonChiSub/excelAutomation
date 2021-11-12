@@ -44,7 +44,7 @@ public class StepDefinitions {
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--user-data-dir=C:\\Users\\patri\\AppData\\Local\\Google\\Chrome\\User Data");
+        options.addArguments("--user-data-dir=C:\\Users\\micha\\AppData\\Local\\Google\\Chrome\\User Data");
         driver = new ChromeDriver(options);
         driver.get("https://outlook.office.com/mail/inbox");
         driver.manage().window().maximize();
@@ -57,20 +57,21 @@ public class StepDefinitions {
             driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[1]/div[1]/div[2]/div/div/button/span/span/span")).click();
             Thread.sleep(5000);
             //Type Recipient Email
-            driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[1]/div[1]/div/div[1]/div/div/div[2]/div[2]/input")).sendKeys(refEmails.get(x));
+            driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div/div[4]/div/div/div[1]/div/div/div[2]/div/input")).sendKeys(refEmails.get(x));
             Thread.sleep(3000);
             //Type the Subject
             driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[1]/div[2]/div[2]/div/div/div/input")).sendKeys("Hello test test 123 xd");
             Thread.sleep(2000);
             //Type the message
-            driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div/div[1]"))
+            driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div[1]/div[1]"))
                     .sendKeys("Hello, " + refTitles.get(x) + " " + refLastNames.get(x) + "\n\n"
                             + "I am writing to you today to ask for a reference on behalf of " + employeeFirstNames.get(x) + " " + employeeLastNames.get(x)
                             + ", who has claimed to have previously worked for you from the years of " + employeePrevJobStartDates.get(x)
                             + " - " + employeePrevJobEndDates.get(x) + ", as a " + employeePrevJobTitles.get(x) + " at " + employeePrevJobCompanyNames.get(x)
                             + ".\n\n" + "Kind Regards, \nThomas Hooson");
             Thread.sleep(2000);
-            driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[3]/div[2]/div[1]/div/div/span/button[1]/span/span"));
+            driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div[1]/div[1]")).sendKeys(keysPressed);
+            Thread.sleep(2000);
         }
     }
 
@@ -80,7 +81,7 @@ public class StepDefinitions {
     }
 
     public void compileDetails() throws IOException {
-        FileInputStream fis = new FileInputStream(new File("C://Users//patri//Desktop//tsiEmployeeInfo.xlsx"));
+        FileInputStream fis = new FileInputStream(new File("C://Users//micha//Desktop//tsiEmployeeInfo.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(fis); // XSSFWorkbook for .xlsx file
         XSSFSheet sheet = workbook.getSheetAt(1); // open sheet 1
 
