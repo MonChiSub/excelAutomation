@@ -33,6 +33,7 @@ public class StepDefinitions {
     private static ArrayList<String> refFirstNames = new ArrayList<>();
     private static ArrayList<String> refLastNames = new ArrayList<>();
     private static ArrayList<String> refEmails = new ArrayList<>();
+    private static ArrayList<String> emailMessage = new ArrayList<>();
     private String keysPressed =  Keys.chord(Keys.CONTROL, Keys.RETURN);
     WebDriver driver;
 
@@ -44,7 +45,11 @@ public class StepDefinitions {
 
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
+
+        //Comment out for whoever is working on the project =)
         options.addArguments("--user-data-dir=C:\\Users\\micha\\AppData\\Local\\Google\\Chrome\\User Data");
+        //options.addArguments("--user-data-dir=C:\\Users\\patri\\AppData\\Local\\Google\\Chrome\\User Data");
+
         driver = new ChromeDriver(options);
         driver.get("https://outlook.office.com/mail/inbox");
         driver.manage().window().maximize();
@@ -64,11 +69,7 @@ public class StepDefinitions {
             Thread.sleep(2000);
             //Type the message
             driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div[1]/div[1]"))
-                    .sendKeys("Hello, " + refTitles.get(x) + " " + refLastNames.get(x) + "\n\n"
-                            + "I am writing to you today to ask for a reference on behalf of " + employeeFirstNames.get(x) + " " + employeeLastNames.get(x)
-                            + ", who has claimed to have previously worked for you from the years of " + employeePrevJobStartDates.get(x)
-                            + " - " + employeePrevJobEndDates.get(x) + ", as a " + employeePrevJobTitles.get(x) + " at " + employeePrevJobCompanyNames.get(x)
-                            + ".\n\n" + "Kind Regards, \nThomas Hooson");
+                    .sendKeys(emailMessage.get(x));
             Thread.sleep(2000);
             driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div[2]/div/div[3]/div[1]/div/div/div/div[1]/div[2]/div/div[1]/div[1]")).sendKeys(keysPressed);
             Thread.sleep(2000);
@@ -81,7 +82,11 @@ public class StepDefinitions {
     }
 
     public void compileDetails() throws IOException {
+        
+        //Comment out for whoever is working on the project =)
         FileInputStream fis = new FileInputStream(new File("C://Users//micha//Desktop//tsiEmployeeInfo.xlsx"));
+        //FileInputStream fis = new FileInputStream(new File("C://Users//patri//Desktop//tsiEmployeeInfo.xlsx"));
+
         XSSFWorkbook workbook = new XSSFWorkbook(fis); // XSSFWorkbook for .xlsx file
         XSSFSheet sheet = workbook.getSheetAt(1); // open sheet 1
 
@@ -128,6 +133,28 @@ public class StepDefinitions {
                 refLastNames.add(fullDatas.get(x));
             } else if (y % 11 == 10) {
                 refEmails.add(fullDatas.get(x));
+            }
+        }
+
+        for(int x = 0; x < employeePrevJobTitles.size(); x++) {
+            if(employeePrevJobTitles.equals("Student")) {
+                emailMessage.add("Hello, " + refTitles.get(x) + " " + refLastNames.get(x) + "\n\n"
+                        + "I am writing to you today to ask for a reference on behalf of " +
+                        employeeFirstNames.get(x) + " " + employeeLastNames.get(x)
+                        + ", who has claimed to have previously studied at "+
+                        employeePrevJobCompanyNames.get(x) + " at the start and finish date of: "
+                        + employeePrevJobStartDates.get(x) + " - " + employeePrevJobEndDates.get(x)
+                        + ", as a " + employeePrevJobTitles.get(x)
+                        +".\n\n" + "Kind Regards, \nThomas Hooson");
+            } else {
+                emailMessage.add("Hello, " + refTitles.get(x) + " " + refLastNames.get(x) + "\n\n"
+                        + "I am writing to you today to ask for a reference on behalf of " +
+                        employeeFirstNames.get(x) + " " + employeeLastNames.get(x)
+                        + ", who has claimed to have previously worked for you from the years of "
+                        + employeePrevJobStartDates.get(x) + " - " + employeePrevJobEndDates.get(x)
+                        + ", as a " + employeePrevJobTitles.get(x) + " at "
+                        + employeePrevJobCompanyNames.get(x)
+                        + ".\n\n" + "Kind Regards, \nThomas Hooson");
             }
         }
     }
