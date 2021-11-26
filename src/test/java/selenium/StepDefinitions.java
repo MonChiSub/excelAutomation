@@ -78,15 +78,18 @@ public class StepDefinitions {
 
     @Then("Send the email to the recipient")
     public void sendEmail() throws InterruptedException {
-        ArrayList<String> assertEmails = new ArrayList<>();
-        driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[1]/div[2]/div/div/div/div[3]/div[3]/div/span[1]"));
+        int a = 0;
+        driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[1]/div[2]/div/div/div/div[3]/div[3]/div/span[1]")).click();
         for(int x = 0; x < refEmails.size(); x++) {
-            List<WebElement> test = driver.findElements(By.xpath("//*[contains(text(),'"+refEmails.get(x)+"']"));
-            assertEmails.add(test.toString());
+            String test = String.valueOf(driver.findElements(By.xpath("//*[contains(text(),'" + refEmails.get(x) + "']")));
+            if (!test.isEmpty()) {
+                a += 1;
+                test = "";
+            } else {
+                test = "";
+            }
         }
-        for(int x = 0; x < assertEmails.size(); x++) {
-            assertEquals(assertEmails.get(x), refEmails.get(x), "Email to "+refEmails.get(x)+" was not sent correctly.");
-        }
+        assertEquals(a, refEmails.size(), "Did not return the same valeus");
         driver.quit();
     }
 
