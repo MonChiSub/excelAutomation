@@ -80,9 +80,9 @@ public class StepDefinitions {
     public void sendEmail() throws InterruptedException {
         ArrayList<String> assertEmails = new ArrayList<>();
         driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[2]/div/div/div/div[1]/div[2]/div/div/div/div[3]/div[3]/div/span[1]"));
-        for(int x = 0; x < refEmail.size(); x++) {
-            String test = driver.findElement(By.xpath("//*[contains(text(),'"+refEmail.get(x)+"']"));
-            assertEmails.add(test);
+        for(int x = 0; x < refEmails.size(); x++) {
+            List<WebElement> test = driver.findElements(By.xpath("//*[contains(text(),'"+refEmails.get(x)+"']"));
+            assertEmails.add(test.toString());
         }
         for(int x = 0; x < assertEmails.size(); x++) {
             assertEquals(assertEmails.get(x), refEmails.get(x), "Email to "+refEmails.get(x)+" was not sent correctly.");
